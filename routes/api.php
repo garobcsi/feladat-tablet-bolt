@@ -28,11 +28,14 @@ Route::prefix('tablets')->group(function () {
         ->name('tablets.show');
     Route::get('/create',[TabletController::class,'create'])
         ->name('tablets.create');
-    Route::post('',[TabletController::class,'store'])
-        ->name('tablets.store');
-    Route::delete('/{tablet}',[TabletController::class,'destroy'])
-        ->whereNumber('tablet')
-        ->name('tablets.destroy');
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('',[TabletController::class,'store'])
+            ->name('tablets.store');
+        Route::delete('/{tablet}',[TabletController::class,'destroy'])
+            ->whereNumber('tablet')
+            ->name('tablets.destroy');
+    });
 });
 Route::prefix('manufacturers')->group(function () {
     Route::get('',[ManufacturerController::class,'index'])
@@ -42,10 +45,13 @@ Route::prefix('manufacturers')->group(function () {
         ->name('manufacturers.show');
     Route::get('/create',[ManufacturerController::class,'create'])
         ->name('manufacturers.create');
-    Route::post('',[ManufacturerController::class,'store'])
-        ->name('manufacturers.store');
-    Route::delete('/{man}',[ManufacturerController::class,'destroy'])
-        ->whereNumber('{man}')
-        ->name('manufacturers.destroy');
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('',[ManufacturerController::class,'store'])
+            ->name('manufacturers.store');
+        Route::delete('/{man}',[ManufacturerController::class,'destroy'])
+            ->whereNumber('{man}')
+            ->name('manufacturers.destroy');
+    });
 });
 Route::post('/auth',[\App\Http\Controllers\AuthController::class,'authenticate'])->name('auth.authenticate');

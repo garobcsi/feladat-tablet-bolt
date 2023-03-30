@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manufacturer extends Model
 {
+    protected $fillable = ["name","webpage"];
     protected $table = "manufacturers";
     public $timestamps = false;
     public function tablets() {
